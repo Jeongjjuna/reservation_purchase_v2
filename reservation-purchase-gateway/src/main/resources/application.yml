@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: reservation-purchase-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: reservation-purchase-api
+          uri: http://localhost:8081/
+          predicates:
+              - Path=/v1/**

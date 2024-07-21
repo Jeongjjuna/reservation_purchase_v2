@@ -1,0 +1,19 @@
+server:
+    port: 8082
+spring:
+    application:
+        name: reservation-purchase-order-consumer
+    datasource:
+        url: jdbc:mysql://localhost:3306/reservation_purchase_database
+        username: local_user
+        password: local_password
+    jpa:
+        properties:
+            hibernate:
+    data:
+        redis:
+            url: redis://localhost:6379
+    level:
+        org:
+            springframework:
+                web: INFO
