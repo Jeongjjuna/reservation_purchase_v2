@@ -30,4 +30,16 @@ public class RedisRepository {
         return redisTemplate.opsForList().rightPush(key, value);
     }
 
+    public String lIndex(String key, long index) {
+        return redisTemplate.opsForList().index(key, index);
+    }
+
+    public String lPop(String key) {
+        return redisTemplate.opsForList().leftPop(key);
+    }
+
+    public Long lSize(String key) {
+        return redisTemplate.opsForList().size(key);
+    }
+
 }

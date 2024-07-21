@@ -91,7 +91,7 @@ public class OrderService {
     }
 
     public void issueRequest(Long productId, Long memberId, Integer quantity, String address) {
-        String issueRequestKey = "issue.request.productId:%s".formatted(productId);
+        String issueRequestKey = "issue.request";
         OrderIssueRequest orderIssueRequest = new OrderIssueRequest(productId, memberId, quantity, address);
 
         try {
