@@ -61,7 +61,6 @@ public class OrderService {
             try {
                 String key = "products:%s:stocks".formatted(productId);
                 String stockCount = redisRepository.get(key);
-                System.out.println(stockCount);
                 if (stockCount == null) {
                     StockEntity stock = stockRepository.findByProductId(productId)
                             .orElseThrow(() -> new GlobalException(HttpStatus.NOT_FOUND, "[ERROR] 상품 재고 정보를 찾을 수 없음"));

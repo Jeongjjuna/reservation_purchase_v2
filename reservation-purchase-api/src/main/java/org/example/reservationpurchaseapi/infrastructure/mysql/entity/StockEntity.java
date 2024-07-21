@@ -8,7 +8,9 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.reservationpurchaseapi.common.exception.GlobalException;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.http.HttpStatus;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(value = {AuditingEntityListener.class})
@@ -24,4 +26,10 @@ public class StockEntity {
     @Column(name = "stock_count", nullable = false)
     private Integer stockCount;
 
+    public void substract() {
+        if (this.stockCount == 0) {
+            throw new GlobalException(HttpStatus.CONFLICT, "[ERROR] 수량 감소 에러 발생");
+        }
+        this.stockCount -= 1;
+    }
 }
