@@ -25,7 +25,14 @@ subprojects {
     }
 
     dependencies {
-        implementation("org.springframework.boot:spring-boot-starter-web")
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("org.springframework.boot:spring-boot-starter-data-redis")
+        implementation("org.redisson:redisson-spring-boot-starter:3.27.1")
+
+        runtimeOnly("com.mysql:mysql-connector-j")
+        compileOnly("org.projectlombok:lombok")
+        annotationProcessor("org.projectlombok:lombok")
+
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
@@ -37,21 +44,24 @@ subprojects {
 
 project(":reservation-purchase-api") {
     dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-web")
     }
 }
 
-project(":reservation-purchase-api") {
+project(":reservation-purchase-order-consumer") {
     dependencies {
+        implementation(project(":reservation-purchase-api"))
+        implementation("org.springframework.boot:spring-boot-starter-web")
     }
 }
 
 project(":reservation-purchase-gateway") {
     extra["springCloudVersion"] = "2023.0.3"
 
-    configurations {
-        all {
-            exclude(group = "org.springframework.boot", module = "spring-boot-starter-web")
-        }
+    configurations.all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-data-jpa")
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-data-redis")
+        exclude(group = "org.redisson", module = "redisson-spring-boot-starter")
     }
 
     dependencies {
